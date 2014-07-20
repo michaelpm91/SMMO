@@ -3,23 +3,22 @@ pc.script.create('cameraFollow', function (context) {
     var CameraFollow = function (entity) {
         this.entity = entity;
         this.target = null;
+        this.client = null;
         this.tmpVec = new pc.Vec3();
         this.tmpQuat = new pc.Quat();
-        this.client = null;
+        
     };
 
     CameraFollow.prototype = {
         // Called once after all resources are loaded and before the first update
         initialize: function () {
             this.client = context.root.getChildren()[0].script.client;
+            //this.target = context.root.findByName('main_snake');
         },
 
         // Called every frame, dt is time in seconds since last update
         update: function (dt) {
-            if(context.keyboard.wasPressed(pc.input.KEY_S)){
-                console.log(this.entity.getEulerAngles());
-                console.log(this.entity.getRotation());
-            }
+
             if(this.target){
                 var currentTarget = this.target.getPosition();
                 switch(this.client.currentDirection){

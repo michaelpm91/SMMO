@@ -1,6 +1,6 @@
 function Snake(client) {
 
-    this.timer = this.maxTimer = 0.15;/
+    this.timer = this.maxTimer = 500;
     this.owner = client;
 
     this.defaultLength = this.currentLength = 10;
@@ -16,7 +16,7 @@ function Snake(client) {
                 this.positionsArray.push([this.headPosition[0], this.headPosition[1], this.headPosition[2] + i]);
                 break;
             case 2:
-                this.positionsArray.push([this.headPositi on[0], this.headPosition[1], this.headPosition[2] - i]);
+                this.positionsArray.push([this.headPosition[0], this.headPosition[1], this.headPosition[2] - i]);
                 break;
             case 3:
                 this.positionsArray.push([this.headPosition[0] + i, this.headPosition[1], this.headPosition[2]]);
@@ -42,6 +42,11 @@ Snake.prototype.gameUpdateLoop = function (dt) {
 
     this.timer -= dt;
     if(this.timer < 0){
+
+        //console.log('snake position');
+        //console.log(this.positionsArray[0]);
+        //console.log(dt);
+
         this.timer = this.maxTimer;
 
         var nextPosition = this.positionsArray[0].slice();

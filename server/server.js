@@ -46,4 +46,6 @@ server.on('connection', function(client) {
         this.snake.movementDirection = data;
     });
 
+    publish('create', client.snake.data);
+
 });
