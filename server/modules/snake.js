@@ -51,6 +51,7 @@ Snake.prototype.gameUpdateLoop = function (dt) {
 
         var nextPosition = this.positionsArray[0].slice();
 
+        console.log('x: ' + nextPosition[0] + ' y: ' + nextPosition[1] + ' z: ' + nextPosition[2]);
         switch(this.movementDirection){
             case 1://Up
                 this.positionsArray[0][2] -=1;

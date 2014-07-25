@@ -23,7 +23,7 @@ pc.script.create('client', function (context) {
                 self.currentDirection = data.defaultDirection;
                 self.snakeInstantiator.create(data);
             });
-            this.currentDirection = context.root.findByName('snake_' + this.clientid).script.snakeAction;
+
         },
 
         // Called every frame, dt is time in seconds since last update
@@ -33,13 +33,13 @@ pc.script.create('client', function (context) {
                 this.currentDirection--;
                 if(this.currentDirection == 0) this.currentDirection = 4;
                 this.socket.send('move', this.currentDirection);
-
-                
+                context.root.findByName('snake_' + this.id).script.snakeAction.changeMoveDirection(this.currentDirection);
             }
             if(context.keyboard.wasPressed(pc.input.KEY_RIGHT)){
                 this.currentDirection++;
                 if(this.currentDirection == 5) this.currentDirection = 1;
                 this.socket.send('move', this.currentDirection);
+                context.root.findByName('snake_' + this.id).script.snakeAction.changeMoveDirection(this.currentDirection);
             }
         }
     };
