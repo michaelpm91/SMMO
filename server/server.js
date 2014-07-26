@@ -36,6 +36,18 @@ server.on('connection', function(client) {
         id: client.id
     });
 
+    client.on('disconnect', function() {
+        delete clients[client.id];
+
+        publish('delete', {
+            id: client.id
+        });
+
+        client.snake.delete();
+
+        console.log('client disconnected', client.id);
+    });
+
     for(var id in clients) {
         if (id == client.id) continue;
 

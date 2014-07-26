@@ -13,7 +13,6 @@ pc.script.create('snakeInstantiator', function (context) {
             this.camera = context.root.findByName('Camera');
             this.minimap = context.root.getChildren()[0].script.minimap;
             this.masterSnake = context.root.findByName('main_snake');
-            //this.tank.enabled = false;
         },
         create: function (args) {
             
@@ -24,17 +23,13 @@ pc.script.create('snakeInstantiator', function (context) {
                 newSnake.setName('snake_' + args.id);
                 newSnake.enabled = true;
                 var position = new pc.Vec3(args.positionsArray[0][0], args.positionsArray[0][1], args.positionsArray[0][2]);
-                //console.log(position);
+
                 newSnake.setPosition(position);
-                //console.log(newSnake.getPosition());
-                
-                //console.log(args.positionsArray);
     
                 context.root.findByName('level').addChild(newSnake); 
                 
                 context.root.findByName('snake_' + args.id).script.snakeAction.link(args.id)
                 
-    
                 for (var i = 0; i < args.defaultLength; i++){
                     newSnake.script.snakeAction.addBody(args.positionsArray[i], 'snake_' + args.id);
                 }
@@ -42,12 +37,16 @@ pc.script.create('snakeInstantiator', function (context) {
                 if (args.id == self.client.id) {
                     self.camera.script.cameraFollow.link(newSnake.getChildren()[0]);
                 }
-                //console.log(newSnake.getPosition());
                 
             }, 0);
-
-            //console.log(newSnake.getPosition());
             
+        },
+        
+        delete: function(args) {
+            var snake =  context.root.findByName('snake_' + args.id);
+            if (! snake) return;
+            
+            snake.destroy();
         },
 
         // Called every frame, dt is time in seconds since last update

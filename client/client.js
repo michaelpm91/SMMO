@@ -19,13 +19,17 @@ pc.script.create('client', function (context) {
                 self.id = data.id;
             });
             
+            socket.on('delete', function(data) {
+                self.snakeInstantiator.delete(data);
+            });
+            
             socket.on('create', function(data) {
                 self.currentDirection = data.defaultDirection;
                 self.snakeInstantiator.create(data);
             });
-            
+
             socket.on('update', function(data) {
-               context.root.findByName('snake_' + data.id).script.snakeAction.changeMoveDirection(data.moveDir);
+                context.root.findByName('snake_' + data.id).script.snakeAction.changeMoveDirection(data.moveDir);
             });
 
         },

@@ -29,7 +29,7 @@ function Snake(client) {
 
     this.lastUpdate = 0;
     var snake = this;
-    this,gameLoopTimer = setInterval(function(){
+    this.gameLoopTimer = setInterval(function(){
         var now = Date.now();
         var dt = now - snake.lastUpdate;
         snake.lastUpdate = now;
@@ -39,6 +39,7 @@ function Snake(client) {
 
 
 Snake.prototype.gameUpdateLoop = function (dt) {
+    if (this.deleted) return;
 
     this.timer -= dt;
     if(this.timer < 0){
@@ -51,7 +52,7 @@ Snake.prototype.gameUpdateLoop = function (dt) {
 
         var nextPosition = this.positionsArray[0].slice();
 
-        console.log('x: ' + nextPosition[0] + ' y: ' + nextPosition[1] + ' z: ' + nextPosition[2]);
+        //console.log('x: ' + nextPosition[0] + ' y: ' + nextPosition[1] + ' z: ' + nextPosition[2]);
         switch(this.movementDirection){
             case 1://Up
                 this.positionsArray[0][2] -=1;
@@ -77,6 +78,13 @@ Snake.prototype.gameUpdateLoop = function (dt) {
 
 }
 
+Snake.prototype.delete = function() {
+    this.deleted = true;
+    //console.log('DELETED DELETED DELETED');
+    /*this.pos.delete();
+    this.movementDirection.delete();
+    this.owner = null;*/
+};
 
 Snake.prototype.addbody = function(){
 
