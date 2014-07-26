@@ -44,6 +44,12 @@ server.on('connection', function(client) {
 
     client.on('move', function(data) {
         this.snake.movementDirection = data;
+
+        var newData = {
+            id: client.id,
+            moveDir: data
+        };
+        publish('update', newData);
     });
 
     publish('create', client.snake.data);

@@ -23,18 +23,23 @@ pc.script.create('client', function (context) {
                 self.currentDirection = data.defaultDirection;
                 self.snakeInstantiator.create(data);
             });
-            this.currentDirection = context.root.findByName('snake_' + this.clientid).script.snakeAction;
+            
+            socket.on('update', function(data) {
+                //console.log(data);
+               //self.snake.updateData(data.snakes);
+               //Target snake of data.id passed in and change position! Easy!
+               //Probably code below...
+               context.root.findByName('snake_' + data.id).script.snakeAction.changeMoveDirection(data.moveDir);
+            });
+
         },
 
         // Called every frame, dt is time in seconds since last update
         update: function (dt) {
             if(context.keyboard.wasPressed(pc.input.KEY_LEFT)){
-                
                 this.currentDirection--;
                 if(this.currentDirection == 0) this.currentDirection = 4;
                 this.socket.send('move', this.currentDirection);
-
-                
             }
             if(context.keyboard.wasPressed(pc.input.KEY_RIGHT)){
                 this.currentDirection++;
