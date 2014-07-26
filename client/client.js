@@ -25,10 +25,6 @@ pc.script.create('client', function (context) {
             });
             
             socket.on('update', function(data) {
-                //console.log(data);
-               //self.snake.updateData(data.snakes);
-               //Target snake of data.id passed in and change position! Easy!
-               //Probably code below...
                context.root.findByName('snake_' + data.id).script.snakeAction.changeMoveDirection(data.moveDir);
             });
 
